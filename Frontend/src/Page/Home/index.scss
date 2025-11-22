@@ -1,0 +1,20 @@
+*{
+  background-color: #D2D4FF;
+}
+
+.container-All{
+    background-color: #fff;
+    display: flex;
+    width:100vw;
+    min-height:100vh;
+    flex-direction: column;
+    
+}
+.container-Center{
+  display: flex;
+  background-color: #a70000;
+  width: 100vw;
+  height: 5vh;
+  flex-direction: row;
+}
+
