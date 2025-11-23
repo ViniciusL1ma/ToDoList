@@ -1,30 +1,51 @@
 import './index.scss';
+import mais from '../../assets/image/mais.png'
+import editar from '../../assets/image/editar-texto.png'
+import excluir from '../../assets/image/lata-de-lixo.png'
 //import { useState } from "react";
 //import axios from 'axios';
 
 export default function Index() {
-  
-  
-  
-  
   return (
     <section className="container-All">
+
         <section classsName="container-Center">
           <div className='cabecalho'>
-
-            <h2 className='name-Program'>To Do List</h2>
-            <button className='create'> Criar</button>
-            <button className='edit'>Editar</button>
-            <button className='delete'>Deletar</button>
-
-          </div>
-          <div className='collumns-List'>
-            <h2 className='name-task'> Tarefa</h2>
-            <h2 className='obs-task'>Observação</h2>
-            <h2 className='prevision-task'>Conclusao</h2>
-
+          <div className='name-Program'>
+            <h1>To Do List</h1>
           </div>
 
+            <div className='create'>
+               <button>
+                <img src={mais} alt='icon' width={23} />
+                Criar
+                </button>
+              </div>
+              <div className='edit'>
+              <button>
+                <img src={editar} alt='icon-edit' width={23}/>
+                Editar</button>
+              </div>
+              <div className='delete'>
+              <button>
+                <img src={excluir} alt='icon-delete' width={23}/>
+                Deletar</button>
+              </div>
+          </div>
+          <section className='space-ghost'></section>
+          <section className='collumns-List'>
+            <div className='name-task'>
+            <h1> Tarefa</h1>
+            </div>
+            <div className='obs-task'>
+            <h1>Observação</h1>
+            </div>
+            <div className='prevision-task'> 
+            <h1 >Conclusão</h1>
+            </div>
+           
+          </section>
+          <hr className='line'></hr>
         </section>
 
 

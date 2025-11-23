@@ -1,20 +1,82 @@
 *{
-  background-color: #D2D4FF;
+  margin: 0px
 }
 
 .container-All{
-    background-color: #fff;
-    display: flex;
-    width:100vw;
+   background-color: #ffffff;
+    max-width:1000vw;
     min-height:100vh;
     flex-direction: column;
-    
 }
+
 .container-Center{
   display: flex;
-  background-color: #a70000;
+  background-color: #ff0000;
   width: 100vw;
   height: 5vh;
   flex-direction: row;
+  align-items: center;
 }
 
+.cabecalho{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  max-width: 100vw;
+  min-height: 10vh;
+
+  .name-Program>h1{
+    display: flex;
+    font-size: 50px;
+    
+  }
+  .create>button{
+    display: flex;
+    background-color: #0000FF;
+    border-radius: 20px;
+    width: 8vw;
+    height: 5vh;
+    border-style: none;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .edit>button{
+    display: flex;
+    background-color: #E4FBFF;
+    border-radius: 20px;
+    width: 8vw;
+    height: 5vh;
+    border-style: none;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .delete>button{
+    display: flex;
+    background-color: #8F8F8F;
+    border-radius: 20px;
+    width: 8vw;
+    height: 5vh;
+    border-style: none;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+}
+
+.space-ghost{
+  display: flex;
+  padding: 50px;
+}
+.collumns-List{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 30px;
+}
+
+.line{
+  margin:50px 100px;
+}
