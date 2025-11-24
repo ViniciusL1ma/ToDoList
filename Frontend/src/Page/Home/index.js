@@ -2,10 +2,15 @@ import './index.scss';
 import mais from '../../assets/image/mais.png'
 import editar from '../../assets/image/editar-texto.png'
 import excluir from '../../assets/image/lata-de-lixo.png'
-//import { useState } from "react";
-//import axios from 'axios';
+import AddTaskModal from '../../components/PopupCreate';
+import AddTaskModalEdit from '../../components/PopUpEdit';
+import { useState } from "react";
+import axios from 'axios';
 
 export default function Index() {
+ const [open, setOpen] = useState(false);
+
+
   return (
     <section className="container-All">
 
@@ -16,15 +21,21 @@ export default function Index() {
           </div>
 
             <div className='create'>
-               <button>
+               <button onClick={() => setOpen(true)}>
                 <img src={mais} alt='icon' width={23} />
                 Criar
                 </button>
+                {open && (
+               <AddTaskModal onClose={() => setOpen(false)} />
+              )}
               </div>
               <div className='edit'>
-              <button>
+              <button onClick={() => setOpen(true)}>
                 <img src={editar} alt='icon-edit' width={23}/>
                 Editar</button>
+                {open && (
+               <AddTaskModalEdit onClose={() => setOpen(false)} />
+              )}
               </div>
               <div className='delete'>
               <button>

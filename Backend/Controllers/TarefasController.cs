@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjetoToDoList.data;
 using ProjetoToDoList.models;
 
@@ -16,13 +17,78 @@ namespace ProjetoToDoList
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTarefa(Tarefa 
+        public async Task<IActionResult> AddTarefa([FromBody]Tarefa 
         tarefa)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _apiDnContext.DBT.Add(tarefa);
             await _apiDnContext.SaveChangesAsync();
 
             return Ok(tarefa);
+        }
+
+        [HttpGet]
+
+        public async Task<ActionResult<IEnumerable<Tarefa>>> GetTarefa()
+        {
+            var tarefas = await _apiDnContext.DBT.ToListAsync();
+
+            return Ok(tarefas);
+        }
+
+        [HttpGet("{Id}")]
+
+        public async Task<ActionResult<Tarefa>> GetTarefa(int Id)
+        {
+            var tarefas = await _apiDnContext.DBT.FindAsync(Id);
+
+            if (tarefas == null)
+            {
+                return NotFound("Tarefa não encontrada!");
+            }
+            return Ok(tarefas);
+        }
+
+        [HttpPut("{Id}")]
+
+        public async Task<IActionResult> UpdateTarefa(int Id, [FromBody] Tarefa
+        tarefaAtualizado)
+        {
+            var tarefaExistente = await _apiDnContext.DBT.FindAsync(Id);
+
+            if (tarefaExistente == null)
+            {
+                return NotFound("Tarefa não encontrada!");
+            }
+
+            _apiDnContext.Entry(tarefaExistente).CurrentValues.SetValues
+            (tarefaAtualizado);
+
+            await _apiDnContext.SaveChangesAsync();
+
+            return StatusCode(201,tarefaExistente);
+        }
+
+        [HttpDelete("{Id}")]
+
+        public async Task<IActionResult> DeleteTarefa(int Id)
+        {
+            var tarefa = await _apiDnContext.DBT.FindAsync(Id);
+
+            if (tarefa == null)
+            {
+                return NotFound("Tarefa não encontrada!");
+            }
+
+            _apiDnContext.DBT.Remove(tarefa);
+
+            await _apiDnContext.SaveChangesAsync();
+
+            return Ok("Tarefa Deletada com sucesso!");
         }
     }
 }

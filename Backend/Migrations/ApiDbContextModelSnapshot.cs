@@ -24,7 +24,7 @@ namespace ProjetoToDoList.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Observção")
+                    b.Property<string>("Observacao")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Tarefas")

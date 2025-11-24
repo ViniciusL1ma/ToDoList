@@ -10,8 +10,8 @@ using ProjetoToDoList.data;
 namespace ProjetoToDoList.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20251123175014_Inicial")]
-    partial class Inicial
+    [Migration("20251123234237_AjusteObservacao")]
+    partial class AjusteObservacao
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
