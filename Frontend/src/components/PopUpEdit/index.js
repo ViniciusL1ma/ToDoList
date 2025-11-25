@@ -1,19 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './index.scss';
+import axios from "axios";
 
-export default function AddTaskModal({ onClose }) {
-  const [title, setTitle] = useState("");
-  const [observacao, setObservacao] = useState("");
+export default function AddTaskModalEdit({ onClose, tarefa, onUpdate }) {
+  const [titulo, setTitulo] = useState(tarefa?.Tarefas || "");
+  const [observacao, setObservacao] = useState(tarefa?.Observacao || "");
 
-  const handleSubmit = () => {
-    if (!title.trim()) return;
+  useEffect(() => {
+    setTitulo(tarefa?.Tarefas || "");
+    setObservacao(tarefa?.Observacao || "");
+  }, [tarefa]);
 
-    // Aqui você faria o PUT na API
-    // fetch("https://localhost:5001/api/tarefas", { ... })
+  const handleSubmit = async () => {
+    if (!titulo.trim()) return;
 
-    console.log("Tarefa editada:", title);
+    try {
+      const resposta = await axios.put(
+        `http://localhost:5274/api/Tarefas/${tarefa.id}`,
+        {
+          Titulo: titulo,
+          Observacao: observacao
+        }
+      );
 
-    onClose(); 
+      console.log("Tarefa editada:", resposta.data);
+      onUpdate(resposta.data); // atualiza a lista no componente principal
+      onClose();
+    } catch (erro) {
+      console.error("Erro ao editar:", erro.response?.data || erro);
+    }
   };
 
   return (
@@ -21,18 +36,16 @@ export default function AddTaskModal({ onClose }) {
       <div className="modal">
         <h2>Editar Tarefa</h2>
 
-
         <h1>Tarefa</h1>
         <input
           type="text"
           placeholder="Título da tarefa"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={titulo}
+          onChange={(e) => setTitulo(e.target.value)}
         />
 
-        <br></br>
         <h1>Observação</h1>
-         <input
+        <input
           type="text"
           placeholder="Observação"
           value={observacao}
@@ -40,12 +53,8 @@ export default function AddTaskModal({ onClose }) {
         />
 
         <div className="buttons">
-          <button onClick={onClose} className="cancel">
-            Cancelar
-          </button>
-          <button onClick={handleSubmit} className="confirm">
-            Editar
-          </button>
+          <button onClick={onClose} className="cancel">Cancelar</button>
+          <button onClick={handleSubmit} className="confirm">Editar</button>
         </div>
       </div>
     </div>

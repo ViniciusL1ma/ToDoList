@@ -1,19 +1,23 @@
 import { useState } from "react";
 import './style.scss';
+import axios from "axios";
+import { createTodo } from "../../services/allServices";
 
-export default function AddTaskModal({ onClose }) {
-  const [title, setTitle] = useState("");
-  const [observacao, setObservacao] = useState("");
-  const handleSubmit = () => {
-    if (!title.trim()) return;
+export default function AddTaskModalCreate({ onClose, onCreate }) {
+  const [title, setTitle] = useState([]);
+  const [observacao, setObservacao] = useState([]);
 
-    // Aqui você faria o POST na API
-    // fetch("https://localhost:5001/api/tarefas", { ... })
+ async function handleSubmit() {
+  const novaTarefa = await createTodo({
+    Titulo: title,
+    observacao, observacao,
+    conclusao: false
+  });
 
-    console.log("Tarefa enviada:", title);
+  onCreate(novaTarefa);
+  onClose();
+};
 
-    onClose(); 
-  };
 
   return (
     <div className="overlay">

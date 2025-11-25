@@ -53,25 +53,25 @@ namespace ProjetoToDoList
             return Ok(tarefas);
         }
 
-        [HttpPut("{Id}")]
+       [HttpPut("{Id}")]
+        public async Task<IActionResult> UpdateTarefa(int Id, [FromBody] Tarefa tarefaAtualizado)
+        {   
+    var tarefaExistente = await _apiDnContext.DBT.FindAsync(Id);
 
-        public async Task<IActionResult> UpdateTarefa(int Id, [FromBody] Tarefa
-        tarefaAtualizado)
-        {
-            var tarefaExistente = await _apiDnContext.DBT.FindAsync(Id);
+    if (tarefaExistente == null)
+        return NotFound("Tarefa não encontrada!");
 
-            if (tarefaExistente == null)
-            {
-                return NotFound("Tarefa não encontrada!");
-            }
+    if (!string.IsNullOrEmpty(tarefaAtualizado.Titulo))
+        tarefaExistente.Titulo = tarefaAtualizado.Titulo;
 
-            _apiDnContext.Entry(tarefaExistente).CurrentValues.SetValues
-            (tarefaAtualizado);
+    if (tarefaAtualizado.Observacao != null)
+        tarefaExistente.Observacao = tarefaAtualizado.Observacao;
 
-            await _apiDnContext.SaveChangesAsync();
+    await _apiDnContext.SaveChangesAsync();
 
-            return StatusCode(201,tarefaExistente);
+    return Ok(tarefaExistente);
         }
+
 
         [HttpDelete("{Id}")]
 
